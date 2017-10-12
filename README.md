@@ -1,1 +1,1 @@
-# sase-hack-2017
+[Click here](https://cdn.rawgit.com/sase-hack/sase-hack-2017/feature/r-tutorials/tutorials/r-tutorial.html) to see R Tutorial in markdown.
