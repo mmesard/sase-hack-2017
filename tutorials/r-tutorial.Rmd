@@ -30,7 +30,15 @@ library(dplyr)
 ```{r obesity-data}
 obesity_data <- filter(data,Question == 'Percent of adults aged 18 years and older who have obesity')
 age_obesity_data<-filter(obesity_data,StratificationCategory1=="Age (years)")
-summarise(group_by(age_obesity_data,Stratification1),mean=mean(Data_Value))
+agebyobesity<-summarise(group_by(age_obesity_data,Stratification1),mean=mean(Data_Value))
 ```
 
+## Data Visualization of Obesity Rate by Age
+
+```{r, message=FALSE}
+# ggplot2 library for ggplot function
+library(ggplot2)
+ggplot(data=agebyobesity, aes(x=Stratification1,y=mean,fill=factor(Stratification1))) +
+  geom_bar(position="dodge",stat="identity") + xlab("Age Group") + ylab("Obesity Rate") + scale_fill_brewer(palette="BuGn",direction=-1) + guides(fill=guide_legend(title="Age Group")) 
+```
 
