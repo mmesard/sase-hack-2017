@@ -55,3 +55,7 @@ options(DT.options = list(pageLength = 54)) #for printing - set length of datata
 obesitybystate<-summarise(group_by(obesity_data,LocationAbbr),mean=mean(Data_Value,na.rm=TRUE))
 obesitybystate %>% DT::datatable()
 ```
+ggplot(data=obesitybystate, aes(x=LocationAbbr, y=mean, fill=factor(LocationAbbr))) + 
+  geom_bar(position="dodge", stat="identity") +xlab("Stte") + ylab("Obesity Rate") +  
+  guides(fill=guide_legend(title="State"))  
+
