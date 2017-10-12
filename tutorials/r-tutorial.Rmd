@@ -30,7 +30,8 @@ library(dplyr)
 ```{r obesity-data}
 obesity_data <- filter(data,Question == 'Percent of adults aged 18 years and older who have obesity')
 age_obesity_data<-filter(obesity_data,StratificationCategory1=="Age (years)")
-agebyobesity<-summarise(group_by(age_obesity_data,Stratification1),mean=mean(Data_Value))
+obesitybyage<-summarise(group_by(age_obesity_data,Stratification1),mean=mean(Data_Value))
+obesitybyage
 ```
 
 ## Data Visualization of Obesity Rate by Age
@@ -38,7 +39,19 @@ agebyobesity<-summarise(group_by(age_obesity_data,Stratification1),mean=mean(Dat
 ```{r, message=FALSE}
 # ggplot2 library for ggplot function
 library(ggplot2)
-ggplot(data=agebyobesity, aes(x=Stratification1,y=mean,fill=factor(Stratification1))) +
+ggplot(data=obesitybyage, aes(x=Stratification1,y=mean,fill=factor(Stratification1))) +
   geom_bar(position="dodge",stat="identity") + xlab("Age Group") + ylab("Obesity Rate") + scale_fill_brewer(palette="BuGn",direction=-1) + guides(fill=guide_legend(title="Age Group")) 
 ```
 
+## Linear Regression
+```{r lr}
+fit<-lm(Data_Value~YearStart,data=age_obesity_data)
+summary(fit)
+```
+
+## Group by State
+```{r}
+options(DT.options = list(pageLength = 54)) #for printing - set length of datatable to 54
+obesitybystate<-summarise(group_by(obesity_data,LocationAbbr),mean=mean(Data_Value,na.rm=TRUE))
+obesitybystate %>% DT::datatable() 
+```
