@@ -53,5 +53,5 @@ summary(fit)
 ```{r}
 options(DT.options = list(pageLength = 54)) #for printing - set length of datatable to 54
 obesitybystate<-summarise(group_by(obesity_data,LocationAbbr),mean=mean(Data_Value,na.rm=TRUE))
-obesitybystate %>% DT::datatable() 
+obesitybystate %>% DT::datatable()
 ```
